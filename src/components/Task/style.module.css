@@ -1,5 +1,6 @@
 .task {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr max-content;
     gap: 8px;
     text-align: left;
     max-width: 600px;
