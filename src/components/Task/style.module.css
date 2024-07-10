@@ -1,0 +1,23 @@
+.task {
+    display: flex;
+    gap: 8px;
+    text-align: left;
+    max-width: 600px;
+}
+
+.truncated {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.completed {
+    opacity: 0.5;
+    text-decoration: line-through;
+}

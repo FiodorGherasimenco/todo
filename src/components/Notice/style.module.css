@@ -1,0 +1,12 @@
+.notice {
+    position: fixed;
+    top: 20px;
+    display: flex;
+    gap: 8px;
+    background: #842121;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-block: var(--spacing);
+    padding-inline: calc(var(--spacing) * 2);
+    align-items: center;
+}

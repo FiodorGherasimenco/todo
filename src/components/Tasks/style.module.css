@@ -1,0 +1,12 @@
+.container {
+    display: grid;
+    max-width: 600px;
+    margin-inline: auto;
+}
+
+.tasks {
+    display: flex;
+    gap: var(--spacing);
+    flex-direction: column;
+    padding-block: calc(var(--spacing) * 2);
+}

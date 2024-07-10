@@ -1,0 +1,32 @@
+.button {
+    --font-size: var(--_fotn-size, 1em);
+    --background-color: var(--_background-color, #1a1a1a);
+    --border-color: var(--_border-color, #646cff);
+
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em;
+    font-size: var(--font-size);
+    font-weight: 500;
+    font-family: inherit;
+    background-color: var(--background-color);
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+.button.small {
+    --_fotn-size: 0.75em;
+}
+
+.button:hover {
+    border-color: var(--border-color);
+}
+
+.button.secondary {
+    --_background-color: #4e4e4e;
+}
+
+.button:focus,
+.button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
