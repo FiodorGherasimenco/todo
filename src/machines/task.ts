@@ -9,7 +9,7 @@ type Context = {
   errorMessage?: string;
 };
 
-let timeout: number;
+let timeout: NodeJS.Timeout;
 
 export default () =>
   createMachine<Context>({

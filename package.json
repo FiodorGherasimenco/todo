@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build --base=/todo/",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "ci": "npm test"
   },
   "dependencies": {
     "react": "^18.3.1",

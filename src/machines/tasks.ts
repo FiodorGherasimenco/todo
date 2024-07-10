@@ -3,7 +3,7 @@ import { createMachine } from "../fsm";
 
 type Context = { loading: boolean; tasks: Todo[]; errorMessage: string };
 
-let timeout: number;
+let timeout: NodeJS.Timeout;
 
 export default createMachine<Context>({
   initialState: "idle",
