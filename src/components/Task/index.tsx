@@ -60,7 +60,7 @@ export const Task = ({ task }: Props) => {
           <Button
             variant="secondary"
             onClick={handleCompleteClick}
-            disabled={state.loading}
+            disabled={state.loading || completed}
           >
             Complete
           </Button>
