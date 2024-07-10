@@ -3,7 +3,7 @@ export type Props = {
   inProgress?: boolean;
 };
 
-export const Preloader = ({ className, inProgress }: Props) => {
+export const Preloader = ({ className = "", inProgress }: Props) => {
   if (!inProgress) {
     return null;
   }

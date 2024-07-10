@@ -2,7 +2,7 @@ import { DEFAULT_USER_ID } from "../constants/api";
 import { service } from "./service";
 
 export type Todo<T = object> = T & {
-  id: string;
+  id: number;
   todo: string;
   completed: boolean;
 };
