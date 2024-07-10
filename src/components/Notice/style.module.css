@@ -1,7 +1,10 @@
 .notice {
     position: fixed;
-    top: 20px;
+    min-width: 320px;
+
+    top: calc(var(--spacing) * 2);
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     background: #842121;
     left: 50%;
@@ -9,4 +12,10 @@
     padding-block: var(--spacing);
     padding-inline: calc(var(--spacing) * 2);
     align-items: center;
+    box-sizing: border-box;
+    border-radius: var(--spacing);
+}
+
+.controls {
+    margin-left: auto;
 }
