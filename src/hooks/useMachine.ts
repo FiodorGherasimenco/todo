@@ -2,7 +2,7 @@ import { useCallback, useSyncExternalStore } from "react";
 import type StateMachine from "../fsm/machine";
 
 export const useMachine = <T>(machine: StateMachine<T>) => {
-  const getContext = useCallback(() => machine.getContext(), [machine]);
+  const getSnapshot = useCallback(() => machine.state, [machine]);
   const subscribe = useCallback(
     (listener: () => void) => machine.subscribe("change", listener).release,
     [machine],
@@ -14,7 +14,7 @@ export const useMachine = <T>(machine: StateMachine<T>) => {
     [machine],
   );
 
-  const state = useSyncExternalStore(subscribe, getContext, getContext);
+  const state = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 
   return [state, send] as const;
 };

@@ -25,46 +25,53 @@ export type StateMachineConfig<TContext> = {
 };
 
 export default class StateMachine<TContext = object> extends EventEmitter {
-  state: string;
+  state: {
+    value: string;
+    context: TContext;
+  };
   states: Record<string, State<TContext>>;
   context: TContext;
 
   constructor(config: StateMachineConfig<TContext>) {
     super();
-    this.state = config.initialState;
+    this.state = {
+      value: config.initialState,
+      context: config.context,
+    };
     this.states = config.states;
     this.context = config.context;
   }
 
-  getContext() {
-    return this.context;
-  }
-
-  // function useState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
-
-  setContext(context: TContext | ((a: TContext) => TContext)) {
+  setContext(context: TContext | ((context: TContext) => TContext)) {
     if (typeof context === "function") {
-      // @ts-expect-error: context cannot be used as a function, will fix later
-      this.context = context(this.context);
+      this.state = {
+        ...this.state,
+        // @ts-expect-error: context cannot be used as a function, will fix later
+        context: context(this.state.context),
+      };
     } else {
-      this.context = context;
+      this.state = {
+        ...this.state,
+        context: context,
+      };
     }
   }
 
   transition(eventName: string, params: Record<string, unknown> = {}) {
-    const currentState = this.states[this.state];
+    const currentState = this.states[this.state.value];
     const transition = currentState.transitions[eventName];
     if (!transition) {
       return;
     }
 
-    this.state = transition.target;
-
-    const newState = this.states[this.state];
+    this.state = {
+      ...this.state,
+      value: transition.target,
+    };
 
     transition.action?.(this);
     currentState.actions?.onExit?.(this);
-    newState.actions?.onEnter?.(params, this);
+    this.states[this.state.value].actions?.onEnter?.(params, this);
 
     this.emit("change");
   }

@@ -9,29 +9,23 @@ export type Props = {
 };
 
 export const TaskForm = ({ onSubmit }: Props) => {
-  const [{ loading, formData }, send] = useMachine(FormMachine);
-
+  const [state, send] = useMachine(FormMachine);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    send("submit");
-    onSubmit?.(formData);
+    onSubmit?.(state.context);
     send("reset");
   };
 
   const handleChange = (value: string) => {
-    send("update", {
+    send("change", {
       title: value,
     });
   };
 
   return (
     <form className={style.form} onSubmit={handleSubmit}>
-      <TextInput
-        value={formData.title}
-        disabled={loading}
-        onChange={handleChange}
-      />
-      <Button variant="primary" disabled={!formData.title.length || loading}>
+      <TextInput value={state.context.title} onChange={handleChange} />
+      <Button variant="primary" disabled={!state.context.title.length}>
         Create
       </Button>
     </form>

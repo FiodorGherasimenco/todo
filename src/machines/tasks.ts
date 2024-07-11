@@ -1,41 +1,28 @@
-import { getAllTasks, Todo, addTask } from "../api/tasks";
+import * as States from "../constants/states";
 import { createMachine } from "../fsm";
+import { getAllTasks, Todo, addTask } from "../api/tasks";
 
-type Context = { loading: boolean; tasks: Todo[]; errorMessage: string };
+type Context = { tasks: Todo[] };
 
 let timeout: NodeJS.Timeout;
 
 export default createMachine<Context>({
-  initialState: "idle",
+  initialState: States.Idle,
   context: {
-    loading: true,
-    errorMessage: "",
     tasks: [],
   },
   states: {
-    idle: {
-      actions: {
-        onEnter(_, instance) {
-          instance.setContext((context) => ({ ...context, loading: false }));
-        },
-        onExit(instance) {
-          instance.setContext((context) => ({
-            ...context,
-            loading: true,
-          }));
-          clearTimeout(timeout);
-        },
-      },
+    [States.Idle]: {
       transitions: {
         fetch: {
-          target: "tasks",
+          target: States.Fetch,
         },
         add: {
-          target: "create",
+          target: States.Create,
         },
       },
     },
-    tasks: {
+    [States.Fetch]: {
       actions: {
         onEnter(_, instance) {
           getAllTasks()
@@ -53,14 +40,14 @@ export default createMachine<Context>({
       },
       transitions: {
         complete: {
-          target: "idle",
+          target: States.Idle,
         },
         error: {
-          target: "error",
+          target: States.Error,
         },
       },
     },
-    create: {
+    [States.Create]: {
       actions: {
         onEnter({ title }, instance) {
           if (!title || typeof title !== "string" || !title.length) {
@@ -82,36 +69,27 @@ export default createMachine<Context>({
       },
       transitions: {
         complete: {
-          target: "idle",
+          target: States.Idle,
         },
         error: {
-          target: "error",
+          target: States.Error,
         },
       },
     },
-    error: {
+    [States.Error]: {
       actions: {
         onEnter(_, instance) {
-          instance.setContext((context) => ({
-            ...context,
-            loading: false,
-            errorMessage: "Something went wrong",
-          }));
           timeout = setTimeout(() => {
-            instance.transition("idle");
+            instance.transition("switch");
           }, 3000);
         },
-        onExit(instance) {
+        onExit() {
           clearTimeout(timeout);
-          instance.setContext((context) => ({
-            ...context,
-            errorMessage: "",
-          }));
         },
       },
       transitions: {
-        idle: {
-          target: "idle",
+        reset: {
+          target: States.Idle,
         },
       },
     },

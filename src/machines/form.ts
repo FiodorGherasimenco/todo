@@ -1,88 +1,55 @@
+import * as States from "../constants/states";
 import { createMachine } from "../fsm";
 
 type Context = {
-  loading: boolean;
-  formData: {
-    title: string;
-  };
+  title: string;
 };
 
 export default createMachine<Context>({
-  initialState: "idle",
+  initialState: States.Idle,
   context: {
-    loading: false,
-    formData: {
-      title: "",
-    },
+    title: "",
   },
   states: {
-    idle: {
-      actions: {
-        onEnter(_, instance) {
-          instance.setContext((context) => ({ ...context, loading: false }));
-        },
-      },
+    [States.Idle]: {
       transitions: {
-        submit: {
-          target: "loading",
-        },
-        update: {
-          target: "change",
+        change: {
+          target: States.Change,
         },
         reset: {
-          target: "clear",
+          target: States.Resert,
         },
       },
     },
-    change: {
+    [States.Change]: {
       actions: {
         onEnter(fields, instance) {
           instance.setContext((context) => ({
             ...context,
-            formData: {
-              ...context.formData,
-              ...fields,
-            },
+            ...fields,
           }));
           instance.transition("complete");
         },
       },
       transitions: {
         complete: {
-          target: "idle",
+          target: States.Idle,
         },
       },
     },
-    clear: {
+    [States.Resert]: {
       actions: {
         onEnter(_, instance) {
           instance.setContext((context) => ({
             ...context,
-            formData: {
-              title: "",
-            },
+            title: "",
           }));
           instance.transition("complete");
         },
       },
       transitions: {
         complete: {
-          target: "idle",
-        },
-      },
-    },
-    loading: {
-      actions: {
-        onEnter(_, instance) {
-          instance.setContext((context) => ({ ...context, loading: true }));
-        },
-      },
-      transitions: {
-        complete: {
-          target: "idle",
-        },
-        reset: {
-          target: "clear",
+          target: States.Idle,
         },
       },
     },

@@ -1,0 +1,9 @@
+export const Idle = "idle";
+export const Create = "create";
+export const Fetch = "fetch";
+export const Error = "error";
+export const Change = "change";
+export const Resert = "reset";
+export const Complete = "complete";
+export const Delete = "delete";
+export const Hide = "hide";
