@@ -97,7 +97,7 @@ export default () => {
         actions: {
           onEnter(_, instance) {
             timeout = setTimeout(() => {
-              instance.transition("switch");
+              instance.transition("reset");
             }, 3000);
           },
           onExit() {
@@ -105,7 +105,7 @@ export default () => {
           },
         },
         transitions: {
-          switch: {
+          reset: {
             target: States.Idle,
           },
           delete: {

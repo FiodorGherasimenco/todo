@@ -38,7 +38,7 @@ export const Task = ({ task }: Props) => {
   };
 
   const handleNoticeHide = () => {
-    send("idle");
+    send("reset");
   };
 
   if (isDeleted) {
