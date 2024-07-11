@@ -108,6 +108,9 @@ export default () => {
           switch: {
             target: States.Idle,
           },
+          delete: {
+            target: States.Hide,
+          },
         },
       },
     },
