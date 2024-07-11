@@ -4,7 +4,6 @@ import {
   fireEvent,
   render,
   screen,
-  waitFor,
 } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
@@ -17,7 +16,7 @@ import {
   test,
   vi,
 } from "vitest";
-import { Todo, TodosOutput } from "../../api/tasks";
+import { Todo } from "../../api/tasks";
 import { TASKS_URLS } from "../../constants/api";
 import { Task } from "./index";
 import style from "./style.module.css";
