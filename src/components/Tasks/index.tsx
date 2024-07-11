@@ -1,14 +1,14 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
+import { ErrorMessage } from "../../constants/messages";
+import * as States from "../../constants/states";
 import { useMachine } from "../../hooks/useMachine";
 import TasksMachine from "../../machines/tasks";
-import { TaskForm } from "../TaskForm";
-import { Task } from "../Task";
-import { Preloader } from "../Preloader";
-import style from "./style.module.css";
 import { Notice } from "../Notice";
-import { createPortal } from "react-dom";
-import * as States from "../../constants/states";
-import { ErrorMessage } from "../../constants/messages";
+import { Preloader } from "../Preloader";
+import { Task } from "../Task";
+import { TaskForm } from "../TaskForm";
+import style from "./style.module.css";
 
 export const Tasks = () => {
   const [state, send] = useMachine(TasksMachine);
@@ -37,7 +37,7 @@ export const Tasks = () => {
           <Notice message={ErrorMessage} onHide={handleNoticeHide} />,
           document.body,
         )}
-      <TaskForm onSubmit={handleSubmit} />
+      <TaskForm onSubmit={handleSubmit} disabled={isLoading} />
       <div className={style.tasks}>
         <Preloader inProgress={isLoading} />
         {tasks.map((task, i) => (

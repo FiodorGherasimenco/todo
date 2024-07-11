@@ -5,10 +5,11 @@ import { TextInput } from "../TextInput";
 import style from "./style.module.css";
 
 export type Props = {
+  disabled: boolean;
   onSubmit?: (formData: { title: string }) => Promise<void>;
 };
 
-export const TaskForm = ({ onSubmit }: Props) => {
+export const TaskForm = ({ onSubmit, disabled }: Props) => {
   const [state, send] = useMachine(FormMachine);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,8 +25,16 @@ export const TaskForm = ({ onSubmit }: Props) => {
 
   return (
     <form className={style.form} onSubmit={handleSubmit}>
-      <TextInput value={state.context.title} onChange={handleChange} />
-      <Button variant="primary" disabled={!state.context.title.length}>
+      <TextInput
+        value={state.context.title}
+        onChange={handleChange}
+        disabled={disabled}
+      />
+      <Button
+        type="submit"
+        variant="primary"
+        disabled={disabled || !state.context.title.length}
+      >
         Create
       </Button>
     </form>

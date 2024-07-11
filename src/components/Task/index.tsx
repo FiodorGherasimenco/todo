@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { createPortal } from "react-dom";
 import { Todo } from "../../api/tasks";
-import { useMachine } from "../../hooks/useMachine";
-import { Button } from "../Button";
-import TaskMachine from "../../machines/task";
-import { Notice } from "../Notice";
-import style from "./style.module.css";
 import { ErrorMessage } from "../../constants/messages";
 import * as States from "../../constants/states";
+import { useMachine } from "../../hooks/useMachine";
+import TaskMachine from "../../machines/task";
+import { Button } from "../Button";
+import { Notice } from "../Notice";
+import style from "./style.module.css";
 
 export type Props = {
   task: Todo;
@@ -21,7 +21,6 @@ export const Task = ({ task }: Props) => {
   const isHidden = state.value === States.Hide;
   const isError = state.value === States.Error;
   const isDisabled = isDeleted || state.value === States.Complete;
-
   const handleCompleteClick = () => {
     send("complete", {
       taskId: task.id,

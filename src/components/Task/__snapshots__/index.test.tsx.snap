@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Task> > snapshot 1`] = `
+<div>
+  <div
+    class="_task_78c96f"
+  >
+    <div
+      class="_truncated_78c96f false"
+    >
+      dummy task
+    </div>
+    <div
+      class="_actions_78c96f"
+    >
+      <button
+        class="_button_0696ee _secondary_0696ee _medium_0696ee"
+      >
+        Complete
+      </button>
+      <button
+        class="_button_0696ee _secondary_0696ee _medium_0696ee"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+`;

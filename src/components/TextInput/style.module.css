@@ -13,6 +13,15 @@
     width: 100%;
 }
 
+.small {
+}
+
+.medium {
+}
+
+.large {
+}
+
 .input:hover {
     border-color: #646cff;
 }

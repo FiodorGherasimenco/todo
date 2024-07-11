@@ -1,0 +1,86 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Tasks> > snapshot 1`] = `
+<div>
+  <div
+    class="_container_f7bf23"
+  >
+    <form
+      class="_form_adff70"
+    >
+      <input
+        class="_input_4f1997 _medium_4f1997 _fluid_4f1997"
+        disabled=""
+        value=""
+      />
+      <button
+        class="_button_0696ee _primary_0696ee _medium_0696ee"
+        disabled=""
+        type="submit"
+      >
+        Create
+      </button>
+    </form>
+    <div
+      class="_tasks_f7bf23"
+    >
+      <div
+        class=""
+      >
+        Loading...
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Tasks> > snapshot 2`] = `
+<div>
+  <div
+    class="_container_f7bf23"
+  >
+    <form
+      class="_form_adff70"
+    >
+      <input
+        class="_input_4f1997 _medium_4f1997 _fluid_4f1997"
+        value=""
+      />
+      <button
+        class="_button_0696ee _primary_0696ee _medium_0696ee"
+        disabled=""
+        type="submit"
+      >
+        Create
+      </button>
+    </form>
+    <div
+      class="_tasks_f7bf23"
+    >
+      <div
+        class="_task_78c96f"
+      >
+        <div
+          class="_truncated_78c96f false"
+        >
+          fake_title
+        </div>
+        <div
+          class="_actions_78c96f"
+        >
+          <button
+            class="_button_0696ee _secondary_0696ee _medium_0696ee"
+          >
+            Complete
+          </button>
+          <button
+            class="_button_0696ee _secondary_0696ee _medium_0696ee"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -14,15 +14,21 @@
     transition: border-color 0.25s;
 }
 
-.button.small {
+.small {
     --_fotn-size: 0.75em;
+}
+
+.medium {
 }
 
 .button:hover {
     border-color: var(--border-color);
 }
 
-.button.secondary {
+.primary {
+}
+
+.secondary {
     --_background-color: #4e4e4e;
 }
 
