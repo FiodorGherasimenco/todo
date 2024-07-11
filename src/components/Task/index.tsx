@@ -65,7 +65,7 @@ export const Task = ({ task }: Props) => {
           <Button
             variant="secondary"
             onClick={handleCompleteClick}
-            disabled={isDisabled}
+            disabled={isCompleted || isDisabled}
           >
             Complete
           </Button>
