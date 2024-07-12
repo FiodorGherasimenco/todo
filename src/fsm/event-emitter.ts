@@ -1,5 +1,5 @@
 export class EventEmitter {
-  events: Record<string, Record<string, Function>>;
+  events: Record<string, Record<string, (...args: unknown[]) => void>>;
   count: number;
 
   constructor() {
@@ -7,7 +7,7 @@ export class EventEmitter {
     this.count = 0;
   }
 
-  subscribe(eventName: string, callback: Function) {
+  subscribe(eventName: string, callback: (...args: unknown[]) => void) {
     const id = this.count++;
     if (!this.events[eventName]) {
       this.events[eventName] = {};
@@ -25,7 +25,7 @@ export class EventEmitter {
   emit(eventName: string, ...args: unknown[]) {
     const listeners = this.events[eventName];
     if (listeners) {
-      for (let id in listeners) {
+      for (const id in listeners) {
         listeners[id](...args);
       }
     }
