@@ -72,6 +72,8 @@ describe("<Task>", () => {
 
     fireEvent.click(button);
 
+    // runAllTimers should be wrapped with act becuase testing library will use original timers
+    // https://github.com/testing-library/react-testing-library/issues/1198
     await act(() => vi.runAllTimers());
 
     expect(button.hasAttribute("disabled")).toBeTruthy();
@@ -79,5 +81,53 @@ describe("<Task>", () => {
     expect(
       screen.getByText("dummy task").classList.contains(style.truncated),
     ).toBeTruthy();
+  });
+
+  test("delete task", async () => {
+    server.use(
+      http.delete<never, { completed: boolean }, Todo>(
+        `${TASKS_URLS}/todos/1`,
+        async () => {
+          return HttpResponse.json<
+            Todo<{
+              isDeleted: boolean;
+              deletedOn: string;
+            }>
+          >({
+            ...fakeTask,
+            isDeleted: true,
+            deletedOn: new Date().toISOString(),
+          });
+        },
+      ),
+    );
+
+    const { container } = render(<Task task={fakeTask} />);
+
+    const deleteButton = screen.getByRole("button", { name: /delete/i });
+
+    expect(deleteButton.hasAttribute("disabled")).toBeFalsy();
+
+    fireEvent.click(deleteButton);
+
+    // runAllTimers should be wrapped with act becuase testing library will use original timers
+    // https://github.com/testing-library/react-testing-library/issues/1198
+    await act(() => vi.runAllTimers());
+
+    expect(container.hasChildNodes()).toBeFalsy();
+  });
+
+  test("undo deletion task", async () => {
+    render(<Task task={fakeTask} />);
+
+    const deleteButton = screen.getByRole("button", { name: /delete/i });
+
+    expect(deleteButton.hasAttribute("disabled")).toBeFalsy();
+    expect(screen.queryByRole("button", { name: /undo/i })).toBeNull();
+
+    fireEvent.click(deleteButton);
+    fireEvent.click(screen.getByRole("button", { name: /undo/i }));
+
+    expect(deleteButton.hasAttribute("disabled")).toBeFalsy();
   });
 });

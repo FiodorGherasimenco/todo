@@ -53,7 +53,4 @@ export const deleteTask = (taskId: number) =>
     }>
   >(`/todos/${taskId}`, {
     method: "DELETE",
-    body: JSON.stringify({
-      completed: true,
-    }),
   });
