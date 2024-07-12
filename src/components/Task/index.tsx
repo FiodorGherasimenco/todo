@@ -20,7 +20,7 @@ export const Task = ({ task }: Props) => {
   const isDeleted = state.value === States.Delete;
   const isHidden = state.value === States.Hide;
   const isError = state.value === States.Error;
-  const isDisabled = isDeleted || state.value === States.Complete;
+  const isDisabled = isDeleted || state.value === States.Complete || isError;
   const handleCompleteClick = () => {
     send("complete", {
       taskId: task.id,
